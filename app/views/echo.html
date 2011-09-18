@@ -1,0 +1,42 @@
+<html>
+<head>
+<script type="text/javascript">
+
+var ws = new WebSocket('ws://localhost:9000/echo'); 
+
+ws.onclose = function () { 
+  alert('WebSocket closed or not available'); 
+  //setTimeout(function () { 
+  //  alert('Reconnecting'); 
+  //  openWebsocketServerConnection(); 
+  //}, 1000 * 5); 
+}; 
+
+ws.onopen = function () { 
+  //ws.send("hi there!");
+}; 
+
+ws.onmessage = function (event) { 
+  alert('Data received: ' + event.data); 
+}; 
+
+function sendMessage() { 
+  ws.send(document.getElementById("message").value); 
+}
+
+function sendMessageInThreeSeconds() {
+  setTimeout("sendMessage()", 3000);
+}
+
+</script>
+</head>
+
+  <body>
+    <form>
+      Message:
+      <input type="text" name="message" id="message"/>
+      <input type="button" value="Send message" onclick="sendMessage()" />
+      <input type="button" value="Send message in 3 seconds" onclick="sendMessageInThreeSeconds()" />
+    </form>
+  </body>
+</html>
